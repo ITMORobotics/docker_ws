@@ -29,7 +29,7 @@ else
                 -e XAUTHORITY \
                 -v /dev:/dev \
                 -v $ROOT_DIR/ws:/ws \
-               --user=docker_ur:docker \
+               --user=root:docker \
                --net=host \
                --privileged \
                --name ur_itmo_framework ur_itmo_framework

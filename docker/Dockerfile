@@ -24,7 +24,6 @@ RUN apt-get update && apt-get install -y apt-utils \
 # Base packages
 
 RUN useradd -ms /bin/bash docker_ur
-COPY ws /ws
 WORKDIR /ws
 RUN chown -R docker_ur:docker_ur /ws
 RUN chmod 775 /ws
@@ -46,4 +45,17 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
 RUN pip3 install catkin_tools
 RUN sudo addgroup docker
 
-USER docker_ur
+RUN apt-get install -y ros-noetic-industrial-robot-status-controller \
+                        ros-noetic-industrial-robot-status-interface \
+                        ros-noetic-scaled-joint-trajectory-controller \
+                        ros-noetic-speed-scaling-interface
+
+# Dependency for ur_driver
+RUN apt-get install -y ros-noetic-speed-scaling-state-controller \
+                        ros-noetic-ur-msgs \
+                        ros-noetic-pass-through-controllers \
+                        ros-noetic-ur-client-library \
+                        ros-noetic-moveit
+
+# USER docker_ur
+
